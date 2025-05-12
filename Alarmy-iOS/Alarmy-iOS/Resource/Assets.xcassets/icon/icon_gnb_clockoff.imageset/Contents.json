@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon_gnb_clockoff.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
