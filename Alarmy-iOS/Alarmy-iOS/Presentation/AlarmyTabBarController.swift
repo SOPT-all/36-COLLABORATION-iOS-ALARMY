@@ -19,8 +19,8 @@ class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     func configureController() {
         let alarmViewController = tabBarNavigationController(
-            unselectedImage: symbolImage(name: "iconGnbClockoff"),
-            selectedImage: symbolImage(name: "iconGnbClockon"),
+            unselectedImage: symbolImage(name: "icon_gnb_clockoff"),
+            selectedImage: symbolImage(name: "icon_gnb_clockon"),
             rootViewController: AlarmViewController(),
             title: "알람"
         )
@@ -28,13 +28,13 @@ class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
         let sleepViewController = UIViewController()
         sleepViewController.tabBarItem = UITabBarItem(
             title: "수면",
-            image: symbolImage(name: "iconGnbSleep"),
+            image: symbolImage(name: "icon_gnb_sleep"),
             selectedImage: nil
         )
 
         let morningViewController = tabBarNavigationController(
-            unselectedImage: symbolImage(name: "iconGnbMorningoff"),
-            selectedImage: symbolImage(name: "iconGnbMorningon"),
+            unselectedImage: symbolImage(name: "icon_gnb_morningoff"),
+            selectedImage: symbolImage(name: "icon_gnb_morningon"),
             rootViewController: MorningViewController(),
             title: "아침"
         )
@@ -42,7 +42,7 @@ class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
         let reportViewController = UIViewController()
         reportViewController.tabBarItem = UITabBarItem(
             title: "리포트",
-            image: symbolImage(name: "person.circle"),
+            image: symbolImage(name: "icon_gnb_report"),
             selectedImage: nil
         )
 
@@ -92,5 +92,4 @@ class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
 
         return !disabledTabs.contains(index)
     }
-
 }
