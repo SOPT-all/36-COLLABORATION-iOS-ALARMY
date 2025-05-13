@@ -62,7 +62,7 @@ final class AlarmyTabBarController: UITabBarController, UITabBarControllerDelega
     private func setupTabBarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.appColor.grey900
+        appearance.backgroundColor = UIColor.gray // TODO: 앱 색상으로 변경 예정
 
         let itemAppearance = UITabBarItemAppearance()
         appearance.stackedLayoutAppearance = itemAppearance
