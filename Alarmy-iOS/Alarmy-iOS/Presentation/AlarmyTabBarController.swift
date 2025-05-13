@@ -7,10 +7,10 @@
 
 import UIKit
 
-class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
+final class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private enum TabIndex: Int {
-        case alarm = 0
+        case alarm
         case sleep
         case morning
         case report
