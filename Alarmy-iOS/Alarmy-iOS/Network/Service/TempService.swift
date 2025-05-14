@@ -17,7 +17,7 @@ final class DefaultTempService: TempServiceProtocol {
     
     func getTest() async throws -> String {
         do {
-            let response: BaseResponse<TempModelResponse> = try await network.request(endpoint: .fetch)
+            let response: TempResponse = try await network.request(endpoint: .fetch)
             
             guard let data = response.data else {
                 throw NetworkError.noData
@@ -34,7 +34,7 @@ final class DefaultTempService: TempServiceProtocol {
     func postTest(id: Int) async throws -> String {
         do {
             let request = TempModelRequest(id: id)
-            let response: BaseResponse<TempModelResponse> = try await network.request(
+            let response: TempResponse = try await network.request(
                 endpoint: .login,
                 body: request
             )
