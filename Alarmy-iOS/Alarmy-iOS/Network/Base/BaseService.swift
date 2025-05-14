@@ -75,9 +75,8 @@ final class BaseService {
         }
         
         do {
-            let decoded = try JSONDecoder().decode(BaseReponse<T>.self, from: data)
+            let decoded = try JSONDecoder().decode(BaseResponse<T>.self, from: data)
             
-            // 필요한 값 return 하기
             guard let data = decoded.data else {
                 throw NetworkError.noData
             }
