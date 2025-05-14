@@ -58,16 +58,15 @@ final class BaseService {
         
         NetworkLogger.responseLog(response: httpResponse, data: data)
         
-        // TODO: 명세 따라서 에러코드 분류하기
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.serverError(httpResponse.statusCode)
-        }
-        
         do {
             let decoded = try JSONDecoder().decode(BaseResponse<Response>.self, from: data)
             
             guard let data = decoded.data else {
                 throw NetworkError.noData
+            }
+            
+            guard (200...299).contains(decoded.code) else {
+                throw NetworkError.serverErrorMessage(decoded.message)
             }
             
             return data
