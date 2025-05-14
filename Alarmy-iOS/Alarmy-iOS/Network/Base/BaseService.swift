@@ -11,10 +11,10 @@ final class BaseService {
     static let shared = BaseService()
     private init() { }
     
-    func request<T: Decodable>(
+    func request<Response: Decodable>(
         endpoint: Endpoint,
         body: Encodable? = nil
-    ) async throws -> T {
+    ) async throws -> Response {
         guard let url = URL(string: endpoint.url) else {
             throw NetworkError.urlError
         }
@@ -38,10 +38,8 @@ final class BaseService {
 
     // MARK: - private functions
     
-    private func makeRequestBody(data: Encodable?) throws -> Data {
+    private func makeRequestBody<Body: Encodable>(data: Body) throws -> Data {
         do {
-            guard let data else { throw NetworkError.noRequestBody }
-            
             let jsonEncoder = JSONEncoder()
             let requestBody = try jsonEncoder.encode(data)
             
@@ -51,7 +49,7 @@ final class BaseService {
         }
     }
     
-    private func requestToResponse<T:Decodable>(request: URLRequest) async throws -> T {
+    private func requestToResponse<Response:Decodable>(request: URLRequest) async throws -> Response {
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -66,7 +64,7 @@ final class BaseService {
         }
         
         do {
-            let decoded = try JSONDecoder().decode(BaseResponse<T>.self, from: data)
+            let decoded = try JSONDecoder().decode(BaseResponse<Response>.self, from: data)
             
             guard let data = decoded.data else {
                 throw NetworkError.noData
