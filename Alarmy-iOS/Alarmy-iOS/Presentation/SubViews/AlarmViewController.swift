@@ -15,6 +15,8 @@ final class AlarmViewController: UIViewController {
     // MARK: - Properties
     
     // MARK: - UI Properties
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private let homeHeaderButton = UIButton()
     private let nextAlarmButton = UIButton()
     private let timeAlarmLabel = UILabel()
@@ -29,10 +31,12 @@ final class AlarmViewController: UIViewController {
         
     }
     
-    
     // MARK: - UI Function
     private func setHierarchy() {
-        view.addSubViews(
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubViews(
             homeHeaderButton,
             nextAlarmButton,
             timeAlarmLabel
@@ -40,6 +44,8 @@ final class AlarmViewController: UIViewController {
     }
     
     private func setStyle() {
+        view.backgroundColor = UIColor.appColor(.grey950)
+
         homeHeaderButton.do {
             $0.setImage(UIImage(named: "icon_header_menu"), for: .normal)
         }
@@ -72,7 +78,14 @@ final class AlarmViewController: UIViewController {
     }
     
     private func setLayout() {
-        view.backgroundColor = UIColor.appColor(.grey950)
+        scrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
         
         homeHeaderButton.snp.makeConstraints {
             $0.top.equalTo(view.snp.top).offset(70)
@@ -90,6 +103,7 @@ final class AlarmViewController: UIViewController {
         timeAlarmLabel.snp.makeConstraints {
             $0.leading.equalTo(nextAlarmButton.snp.leading).offset(8)
             $0.top.equalTo(nextAlarmButton.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().offset(-40) // 스크롤뷰 끝나는 지점
         }
     }
     
