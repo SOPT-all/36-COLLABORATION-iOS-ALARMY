@@ -12,17 +12,17 @@ final class BaseService {
     private init() { }
     
     func request<Response: Decodable>(
-        endpoint: Endpoint,
+        endPoint: EndPoint,
         body: Encodable? = nil
     ) async throws -> Response {
-        guard let url = URL(string: endpoint.url) else {
+        guard let url = URL(string: endPoint.url) else {
             throw NetworkError.urlError
         }
         
         var request = URLRequest(url: url)
         
-        request.httpMethod = endpoint.restType.key
-        endpoint.header.forEach {
+        request.httpMethod = endPoint.restType.key
+        endPoint.header.forEach {
             request.addValue($0.value, forHTTPHeaderField: $0.key)
         }
         

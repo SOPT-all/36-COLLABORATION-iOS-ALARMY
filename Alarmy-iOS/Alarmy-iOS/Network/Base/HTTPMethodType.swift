@@ -1,5 +1,5 @@
 //
-//  RestAPIType.swift
+//  HTTPMethodType.swift
 //  Alarmy-iOS
 //
 //  Created by 최주리 on 5/13/25.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum RestAPIType {
+enum HTTPMethodType {
     case get
     case post
     

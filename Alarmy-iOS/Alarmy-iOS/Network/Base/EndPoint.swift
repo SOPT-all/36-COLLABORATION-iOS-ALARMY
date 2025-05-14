@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum Endpoint {
+enum EndPoint {
     // get 예시
     case fetch
     // post 예시
     case login
     
-    var restType: RestAPIType {
+    var restType: HTTPMethodType {
         switch self {
         case .fetch:
             return .get
