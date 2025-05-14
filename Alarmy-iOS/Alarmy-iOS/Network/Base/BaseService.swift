@@ -11,46 +11,37 @@ final class BaseService {
     static let shared = BaseService()
     private init() { }
     
-    /// body가 필요 없을 때 (get)
-    func request<T: Decodable>(endpoint: Endpoint) async throws -> T {
-        guard let url = URL(string: endpoint.url) else {
-            throw NetworkError.urlError
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = endpoint.restType.key
-        
-        NetworkLogger.requestLog(request: request)
-
-        return try await requestToResponse(request: request)
-    }
-    
-    
-    /// body가 필요할 때 (post)
-    func request<T: Decodable, V: Encodable>(
+    func request<T: Decodable>(
         endpoint: Endpoint,
-        body: V
+        body: Encodable? = nil
     ) async throws -> T {
         guard let url = URL(string: endpoint.url) else {
             throw NetworkError.urlError
         }
         
-        let body = try makeRequestBody(data: body)
-
         var request = URLRequest(url: url)
         
         request.httpMethod = endpoint.restType.key
-        request.httpBody = body
+        endpoint.header.forEach {
+            request.addValue($0.value, forHTTPHeaderField: $0.key)
+        }
+        
+        if let body {
+            let requestBody = try makeRequestBody(data: body)
+            request.httpBody = requestBody
+        }
         
         NetworkLogger.requestLog(request: request)
         
         return try await requestToResponse(request: request)
     }
-    
+
     // MARK: - private functions
     
-    private func makeRequestBody(data: Encodable) throws -> Data {
+    private func makeRequestBody(data: Encodable?) throws -> Data {
         do {
+            guard let data else { throw NetworkError.noRequestBody }
+            
             let jsonEncoder = JSONEncoder()
             let requestBody = try jsonEncoder.encode(data)
             

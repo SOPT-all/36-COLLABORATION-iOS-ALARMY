@@ -14,4 +14,5 @@ enum NetworkError: Error {
     case responseDecodingError
     case noData
     case requestEncodingError
+    case noRequestBody
 }
