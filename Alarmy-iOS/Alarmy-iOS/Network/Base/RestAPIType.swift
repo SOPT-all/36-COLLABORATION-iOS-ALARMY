@@ -22,6 +22,24 @@ enum RestAPIType {
     }
 }
 
+enum HeaderType {
+    case auth
+    case none
+    
+    var value: [String: String] {
+        switch self {
+        case .auth:
+            [
+                "Content-Type": "application/json",
+                // userID로 대체
+                "Authorization": "1"
+            ]
+        case .none:
+            ["Content-Type": "application/json"]
+        }
+    }
+}
+
 enum Endpoint {
     // get 예시
     case fetch
@@ -43,6 +61,15 @@ enum Endpoint {
             return ""
         case .login:
             return ""
+        }
+    }
+    
+    var header: [String: String] {
+        switch self {
+        case .fetch:
+            HeaderType.none.value
+        case .login:
+            HeaderType.auth.value
         }
     }
 }
