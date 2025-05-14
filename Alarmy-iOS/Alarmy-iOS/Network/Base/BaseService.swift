@@ -29,7 +29,7 @@ final class BaseService {
     /// body가 필요할 때 (post)
     func request<T: Decodable, V: Encodable>(
         endpoint: Endpoint,
-        body: V? = nil
+        body: V
     ) async throws -> T {
         guard let url = URL(string: endpoint.url) else {
             throw NetworkError.urlError
