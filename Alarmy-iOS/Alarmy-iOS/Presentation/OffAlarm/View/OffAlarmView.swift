@@ -49,13 +49,21 @@ extension OffAlarmView {
         }
         
         dateLabel.do {
-            $0.text = "4월 22일 화요일"
+            $0.text = getDate()
             $0.textColor = .white
             $0.font = .title6
+            $0.layer.addShadow(
+                color: .black,
+                alpha: 0.25,
+                x: 0,
+                y: 0,
+                blur: 10,
+                spread: 0
+            )
         }
         
         timeLabel.do {
-            $0.text = "10:50"
+            $0.text = getTime()
             $0.textColor = .white
             $0.font = .title1
             $0.layer.addShadow(
@@ -168,6 +176,26 @@ extension OffAlarmView {
             $0.height.equalTo(64)
             $0.width.equalTo(314)
         }
+    }
+}
+
+// MARK: - Functions
+extension OffAlarmView {
+    private func getDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 dd일 EEEE"
+        
+        let current = dateFormatter.string(from: Date())
+        return current
+    }
+    
+    private func getTime() -> String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        let current = timeFormatter.string(from: Date())
+        return current
     }
 }
 
