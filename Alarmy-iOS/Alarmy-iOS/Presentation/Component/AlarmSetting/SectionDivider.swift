@@ -10,10 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-class SectionDivider: UIView {
+final class SectionDivider: UIView {
     
-    let dividerView = UIView()
+    // MARK: - UI Properties
+    private let dividerView = UIView()
     
+    // MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,6 +28,7 @@ class SectionDivider: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - UI Function
     private func setStyle() {
         dividerView.do {
             $0.backgroundColor = .appColor(.grey950)
@@ -42,4 +45,7 @@ class SectionDivider: UIView {
     private func setHierarchy() {
         self.addSubview(dividerView)
     }
+    
+    // MARK: - Function
+
 }

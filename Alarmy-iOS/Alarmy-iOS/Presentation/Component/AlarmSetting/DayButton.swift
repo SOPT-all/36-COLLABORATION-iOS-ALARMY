@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class DayButton: UIButton {
+final class DayButton: UIButton {
     // MARK: - Properties
     
     // MARK: - UI Properties

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MissionCollectionViewCell: UICollectionViewCell {
+final class MissionCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier: String = "MissionCollectionViewCell"
     private let missionImages: [UIImage?] = [
