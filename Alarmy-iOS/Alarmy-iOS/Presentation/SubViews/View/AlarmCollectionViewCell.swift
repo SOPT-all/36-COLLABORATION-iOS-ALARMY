@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class AlarmCollectionViewCell: UICollectionViewCell {
+    
     // MARK: - Properties
     static let identifier = "AlarmCollectionViewCell"
     static let dayOfWeekList: [String] = ["일", "월", "화", "수", "목", "금", "토"]
@@ -22,7 +23,7 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
     private let toggleButton = UIButton()
     private let menuButton = UIButton()
     
-    // MARK: - Init
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setStyle()
