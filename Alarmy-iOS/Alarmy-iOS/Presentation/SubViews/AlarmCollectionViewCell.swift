@@ -51,29 +51,31 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         }
         
         timeLabel.do {
-            $0.font = .title3
+            $0.font = .title2
             $0.textColor = UIColor.appColor(.grey500)
             $0.text = "7:20"
             $0.textAlignment = .center
         }
         
         missionButton.do {
-            var config = UIButton.Configuration.filled()
+            var config = UIButton.Configuration.plain()
             let title = "미션"
 
-            let attributedTitle = AttributedString(title, attributes: AttributeContainer([
+            config.attributedTitle = AttributedString(title, attributes: AttributeContainer([
                 .font: UIFont.body4,
                 .foregroundColor: UIColor.appColor(.grey500)
             ]))
-
-            config.attributedTitle = attributedTitle
+            
             config.image = UIImage(named: "icon_alarm_null")
-            config.baseBackgroundColor = UIColor.appColor(.grey900)
             config.imagePlacement = .trailing
             config.imagePadding = 4
-            config.cornerStyle = .capsule
+            
+            config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            config.background.backgroundColor = .clear // 필요 시 배경색 지정
+            config.cornerStyle = .fixed
 
             $0.configuration = config
+            $0.sizeToFit()
         }
         
         toggleButton.do {
@@ -87,7 +89,6 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
     private func setHierarchy() {
         contentView.addSubViews(
             dayOfWeekLabel,
@@ -100,9 +101,13 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
     }
     
     private func setLayout() {
+        self.backgroundColor = UIColor.appColor(.grey900)
+        self.layer.cornerRadius = 16
+        
         dayOfWeekLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
             $0.top.equalToSuperview().offset(12)
+            $0.height.equalTo(18)
         }
         
         ampmLabel.snp.makeConstraints {
@@ -130,10 +135,9 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         }
         
         menuButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-23)
-            $0.top.equalTo(toggleButton.snp.top).offset(27)
-            $0.width.greaterThanOrEqualTo(2)
-            $0.height.greaterThanOrEqualTo(14)
+            $0.trailing.equalTo(toggleButton.snp.trailing)
+            $0.centerY.equalTo(missionButton.snp.centerY)
+            $0.width.height.equalTo(16)
         }
     }
     
