@@ -12,8 +12,6 @@ import Then
 
 final class AlarmViewController: UIViewController {
     
-    // MARK: - Properties
-    
     // MARK: - UI Properties
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -42,21 +40,6 @@ final class AlarmViewController: UIViewController {
             self.updateCollectionViewHeight()
         }
     }
-    
-    // MARK: - Function
-    private func bind() {
-        
-    }
-    
-    private func setDelegate() {
-        // delegate, datasource 모음
-    }
-    
-    private func setAddTarget() {
-        // addtarget 모음
-    }
-    
-    // MARK: - objc
 }
 
 extension AlarmViewController {
@@ -95,6 +78,7 @@ extension AlarmViewController {
             config.imagePlacement = .trailing
             config.imagePadding = 4
             config.cornerStyle = .capsule
+            config.contentInsets = .zero
 
             $0.configuration = config
         }
