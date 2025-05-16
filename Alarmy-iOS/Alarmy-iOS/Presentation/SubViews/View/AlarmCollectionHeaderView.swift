@@ -19,7 +19,9 @@ final class AlarmCollectionHeaderView: UICollectionReusableView {
     private let shareWithFriendsLabel = UILabel()
     private let shareButton = UIButton()
     private let bottomSpacingView = UIView()
-    
+}
+
+extension AlarmCollectionHeaderView {
     // MARK: - UI Function
     func configure() {
         setStyle()

@@ -35,6 +35,14 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - objc
+    @objc
+    private func toggleButtonTapped() {
+        toggleButton.isSelected.toggle()
+    }
+}
+
+extension AlarmCollectionViewCell {
     // MARK: - UI Function
     private func setStyle() {
         dayOfWeekLabel.do {
@@ -140,10 +148,6 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
             $0.centerY.equalTo(missionButton.snp.centerY)
             $0.width.height.equalTo(16)
         }
-    }
-    
-    @objc private func toggleButtonTapped() {
-        toggleButton.isSelected.toggle()
     }
 }
 

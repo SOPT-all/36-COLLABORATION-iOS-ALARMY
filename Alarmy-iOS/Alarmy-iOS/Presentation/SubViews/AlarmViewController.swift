@@ -37,7 +37,24 @@ final class AlarmViewController: UIViewController {
             self.updateCollectionViewHeight()
         }
     }
+    
+    // MARK: - Function
+    private func bind() {
+        
+    }
+    
+    private func setDelegate() {
+        // delegate, datasource 모음
+    }
+    
+    private func setAddTarget() {
+        // addtarget 모음
+    }
+    
+    // MARK: - objc
+}
 
+extension AlarmViewController {
     // MARK: - UI Function
     private func updateCollectionViewHeight() {
         let totalHeight = alarmCollectionView.calculatedAlarmCollectionViewHeight()
@@ -127,19 +144,4 @@ final class AlarmViewController: UIViewController {
             $0.height.equalTo(1)
         }
     }
-    
-    // MARK: - Function
-    private func bind() {
-        
-    }
-    
-    private func setDelegate() {
-        // delegate, datasource 모음
-    }
-    
-    private func setAddTarget() {
-        // addtarget 모음
-    }
-    
-    // MARK: - objc
 }
