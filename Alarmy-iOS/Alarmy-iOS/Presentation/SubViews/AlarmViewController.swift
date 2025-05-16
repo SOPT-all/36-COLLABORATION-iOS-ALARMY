@@ -31,6 +31,11 @@ final class AlarmViewController: UIViewController {
         setLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -61,6 +66,10 @@ extension AlarmViewController {
 
         alarmCollectionView.snp.updateConstraints {
             $0.height.equalTo(totalHeight)
+        }
+        
+        contentView.snp.updateConstraints {
+            $0.bottom.equalTo(alarmCollectionView.snp.bottom).offset(40)
         }
     }
 
@@ -116,11 +125,12 @@ extension AlarmViewController {
         
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            $0.bottom.equalTo(alarmCollectionView.snp.bottom).offset(40)
             $0.width.equalToSuperview()
         }
         
         homeHeaderButton.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top).offset(70)
+            $0.top.equalToSuperview().offset(-20)
             $0.trailing.equalToSuperview().offset(-16)
             $0.width.height.equalTo(32)
         }

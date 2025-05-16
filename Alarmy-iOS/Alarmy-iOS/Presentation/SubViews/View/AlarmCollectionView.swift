@@ -29,6 +29,7 @@ final class AlarmCollectionView: UICollectionView {
         self.dataSource = self
         self.delegate = self
         self.showsVerticalScrollIndicator = false
+        self.isScrollEnabled = false
 
         register()
     }
@@ -63,7 +64,11 @@ final class AlarmCollectionView: UICollectionView {
 
     func calculatedAlarmCollectionViewHeight() -> CGFloat {
         let itemCount = itemData.count
-        return CGFloat(itemCount) * Self.cellHeight + CGFloat(max(0, itemCount - 1)) * Self.cellSpacing
+        let totalCellHeight = CGFloat(itemCount) * Self.cellHeight
+        let totalSpacing = CGFloat(max(0, itemCount - 1)) * Self.cellSpacing
+        let headerHeight: CGFloat = 77
+
+        return headerHeight * 2 + totalCellHeight + totalSpacing
     }
 }
 
