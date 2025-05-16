@@ -13,6 +13,8 @@ import Then
 final class AlarmViewController: UIViewController {
     
     // MARK: - Properties
+    private let collectionViewCellHeight: CGFloat = 116
+    private let collectionViewCellSpacing: CGFloat = 8
     
     // MARK: - UI Properties
     private let scrollView = UIScrollView()
@@ -21,26 +23,38 @@ final class AlarmViewController: UIViewController {
     private let nextAlarmButton = UIButton()
     private let timeAlarmLabel = UILabel()
     
+    private let alarmCollectionView: AlarmCollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = .init(width: 345, height: 116)
+        flowLayout.minimumLineSpacing = 8
+        let collectionView = AlarmCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        return collectionView
+    }()
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setHierarchy()
         setStyle()
+        setHierarchy()
         setLayout()
-        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.updateCollectionViewHeight()
+        }
+    }
+
     // MARK: - UI Function
-    private func setHierarchy() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+    private func updateCollectionViewHeight() {
+        let itemCount = alarmCollectionView.numberOfItems(inSection: 0)
+        let totalHeight = CGFloat(itemCount) * collectionViewCellHeight + CGFloat(max(0, itemCount - 1)) * collectionViewCellSpacing
         
-        contentView.addSubViews(
-            homeHeaderButton,
-            nextAlarmButton,
-            timeAlarmLabel
-        )
+        alarmCollectionView.snp.updateConstraints {
+            $0.height.equalTo(totalHeight)
+        }
     }
     
     private func setStyle() {
@@ -74,7 +88,18 @@ final class AlarmViewController: UIViewController {
             $0.textColor = UIColor.appColor(.grey100)
             $0.font = .title5
         }
-
+    }
+    
+    private func setHierarchy() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubViews(
+            homeHeaderButton,
+            nextAlarmButton,
+            timeAlarmLabel,
+            alarmCollectionView
+        )
     }
     
     private func setLayout() {
@@ -103,7 +128,13 @@ final class AlarmViewController: UIViewController {
         timeAlarmLabel.snp.makeConstraints {
             $0.leading.equalTo(nextAlarmButton.snp.leading).offset(8)
             $0.top.equalTo(nextAlarmButton.snp.bottom).offset(16)
-            $0.bottom.equalToSuperview().offset(-40) // 스크롤뷰 끝나는 지점
+        }
+        
+        alarmCollectionView.snp.remakeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-14)
+            $0.top.equalTo(timeAlarmLabel.snp.bottom).offset(32)
+            $0.height.equalTo(1)
         }
     }
     
