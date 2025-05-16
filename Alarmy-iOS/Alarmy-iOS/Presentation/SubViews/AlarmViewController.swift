@@ -13,8 +13,6 @@ import Then
 final class AlarmViewController: UIViewController {
     
     // MARK: - Properties
-    private let collectionViewCellHeight: CGFloat = 116
-    private let collectionViewCellSpacing: CGFloat = 8
     
     // MARK: - UI Properties
     private let scrollView = UIScrollView()
@@ -22,14 +20,7 @@ final class AlarmViewController: UIViewController {
     private let homeHeaderButton = UIButton()
     private let nextAlarmButton = UIButton()
     private let timeAlarmLabel = UILabel()
-    
-    private let alarmCollectionView: AlarmCollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = .init(width: 345, height: 116)
-        flowLayout.minimumLineSpacing = 8
-        let collectionView = AlarmCollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        return collectionView
-    }()
+    private let alarmCollectionView = AlarmCollectionView()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -49,14 +40,13 @@ final class AlarmViewController: UIViewController {
 
     // MARK: - UI Function
     private func updateCollectionViewHeight() {
-        let itemCount = alarmCollectionView.numberOfItems(inSection: 0)
-        let totalHeight = CGFloat(itemCount) * collectionViewCellHeight + CGFloat(max(0, itemCount - 1)) * collectionViewCellSpacing
-        
+        let totalHeight = alarmCollectionView.calculatedAlarmCollectionViewHeight()
+
         alarmCollectionView.snp.updateConstraints {
             $0.height.equalTo(totalHeight)
         }
     }
-    
+
     private func setStyle() {
         view.backgroundColor = UIColor.appColor(.grey950)
 

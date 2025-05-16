@@ -71,7 +71,7 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
             config.imagePadding = 4
             
             config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            config.background.backgroundColor = .clear // 필요 시 배경색 지정
+            config.background.backgroundColor = .clear
             config.cornerStyle = .fixed
 
             $0.configuration = config
@@ -144,7 +144,6 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
     @objc private func toggleButtonTapped() {
         toggleButton.isSelected.toggle()
     }
-
 }
 
 extension AlarmCollectionViewCell {
