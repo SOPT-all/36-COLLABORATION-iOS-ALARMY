@@ -13,9 +13,7 @@ import Then
 final class AlarmSettingViewController: UIViewController {
     // MARK: - Properties
     private var isVibrationOn: Bool = false {
-        didSet {
-            updateVibrationButtonState()
-        }
+        didSet { updateVibrationButtonState() }
     }
     
     private var lastSnapValue: Float = -1
@@ -125,9 +123,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         headerStackView.do {
-            [xButton, timeUntilAlarmLabel].forEach {
-                headerStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 82
             $0.alignment = .center
@@ -168,18 +163,12 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         everyDayCheckStackView.do {
-            [everyDayCheckButton, everyDayCheckLabel].forEach {
-                everyDayCheckStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 8
             $0.distribution = .fillProportionally
         }
         
         selectDayStackView.do {
-            [selectedDayLabel, everyDayCheckStackView].forEach {
-                selectDayStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
             $0.alignment = .center
@@ -214,9 +203,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         selectDayButtonStackView.do {
-            [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton].forEach {
-                selectDayButtonStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -234,9 +220,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         missionLabelStackView.do {
-            [missionLabel, missionCountLabel].forEach {
-                missionLabelStackView.addArrangedSubview($0)
-            }
             $0.axis = .vertical
             $0.spacing = 2
             $0.distribution = .fillEqually
@@ -282,9 +265,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         volumeAndVibrationStackView.do {
-            [minimumVolumeImageView, volumeSlider, maximumVolumeImageView, verticalDivider, vibrationButton].forEach {
-                volumeAndVibrationStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -306,9 +286,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         soundMoreStackView.do {
-            [cheerfulMorningLabel, soundMoreButton].forEach {
-                soundMoreStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 4
             $0.distribution = .fill
@@ -316,9 +293,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         soundStackView.do {
-            [soundLabel, soundMoreStackView].forEach {
-                soundStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -340,9 +314,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         soundPowerUpMoreStackView.do {
-            [soundPowerUpCountLabel, soundPowerUpMoreButton].forEach {
-                soundPowerUpMoreStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 4
             $0.distribution = .fill
@@ -350,9 +321,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         soundPowerUpStackView.do {
-            [soundPowerUpLabel, soundPowerUpMoreStackView].forEach {
-                soundPowerUpStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -374,9 +342,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         delayAlarmMoreStackView.do {
-            [delayInfoLabel, delayAlarmMoreButton].forEach {
-                delayAlarmMoreStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 4
             $0.distribution = .fill
@@ -384,9 +349,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         delayAlarmStackView.do {
-            [delayAlarmLabel, delayAlarmMoreStackView].forEach {
-                delayAlarmStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -408,9 +370,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         memoMoreStackView.do {
-            [memoTextView, memoMoreButton].forEach {
-                memoMoreStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 4
             $0.distribution = .fill
@@ -418,9 +377,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         memoStackView.do {
-            [memoLabel, memoMoreStackView].forEach {
-                memoStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -436,9 +392,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         preventSleepLabelStackView.do {
-            [preventSleepLabel, lockImageView].forEach {
-                preventSleepLabelStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.spacing = 8
             $0.distribution = .fill
@@ -450,9 +403,6 @@ final class AlarmSettingViewController: UIViewController {
         }
         
         preventSleepStackView.do {
-            [preventSleepLabelStackView, preventSleepMoreButton].forEach {
-                preventSleepStackView.addArrangedSubview($0)
-            }
             $0.axis = .horizontal
             $0.distribution = .equalSpacing
         }
@@ -466,15 +416,121 @@ final class AlarmSettingViewController: UIViewController {
     }
     
     private func setHierarchy() {
-        view.addSubview(headerBackgroundView)
-        view.addSubview(headerStackView)
-        view.addSubview(alarmSettingScrollView)
-        alarmSettingScrollView.addSubview(alarmSettingScrollContentView)
-        view.addSubview(saveButton)
+        view.addSubViews(
+            headerBackgroundView,
+            headerStackView,
+            alarmSettingScrollView,
+            saveButton
+        )
         
-        [timePicker, selectDayStackView, selectDayButtonStackView, divider1, missionLabelStackView, missionCollectionView, divider2, volumeAndVibrationStackView, soundStackView, soundPowerUpStackView, divider3, delayAlarmStackView, memoStackView, preventSleepStackView].forEach {
-            alarmSettingScrollContentView.addSubview($0)
-        }
+        headerStackView.addArrangedSubViews(
+            xButton,
+            timeUntilAlarmLabel
+        )
+        
+        everyDayCheckStackView.addArrangedSubViews(
+            everyDayCheckButton,
+            everyDayCheckLabel
+        )
+        
+        selectDayStackView.addArrangedSubViews(
+            selectedDayLabel,
+            everyDayCheckStackView
+        )
+        
+        selectDayButtonStackView.addArrangedSubViews(
+            sunButton,
+            monButton,
+            tueButton,
+            wedButton,
+            thuButton,
+            friButton,
+            satButton
+        )
+        
+        missionLabelStackView.addArrangedSubViews(
+            missionLabel,
+            missionCountLabel
+        )
+        
+        volumeAndVibrationStackView.addArrangedSubViews(
+            minimumVolumeImageView,
+            volumeSlider,
+            maximumVolumeImageView,
+            verticalDivider,
+            vibrationButton
+        )
+        
+        soundMoreStackView.addArrangedSubViews(
+            cheerfulMorningLabel,
+            soundMoreButton
+        )
+        
+        soundStackView.addArrangedSubViews(
+            soundLabel,
+            soundMoreStackView
+        )
+        
+        soundPowerUpMoreStackView.addArrangedSubViews(
+            soundPowerUpCountLabel,
+            soundPowerUpMoreButton
+        )
+        
+        soundPowerUpStackView.addArrangedSubViews(
+            soundPowerUpLabel,
+            soundPowerUpMoreStackView
+        )
+        
+        delayAlarmMoreStackView.addArrangedSubViews(
+            delayInfoLabel,
+            delayAlarmMoreButton
+        )
+        
+        delayAlarmStackView.addArrangedSubViews(
+            delayAlarmLabel,
+            delayAlarmMoreStackView
+        )
+        
+        memoMoreStackView.addArrangedSubViews(
+            memoTextView,
+            memoMoreButton
+        )
+        
+        memoStackView.addArrangedSubViews(
+            memoLabel,
+            memoMoreStackView
+        )
+        
+        preventSleepLabelStackView.addArrangedSubViews(
+            preventSleepLabel,
+            lockImageView
+        )
+        
+        preventSleepStackView.addArrangedSubViews(
+            preventSleepLabelStackView,
+            preventSleepMoreButton
+        )
+        
+        alarmSettingScrollView.addSubViews(
+            alarmSettingScrollContentView
+        )
+        
+        alarmSettingScrollContentView.addSubViews(
+            timePicker,
+            selectDayStackView,
+            selectDayButtonStackView,
+            divider1,
+            missionLabelStackView,
+            missionCollectionView,
+            divider2,
+            volumeAndVibrationStackView,
+            soundStackView,
+            soundPowerUpStackView,
+            divider3,
+            delayAlarmStackView,
+            memoStackView,
+            preventSleepStackView
+        )
     }
     
     private func setLayout() {
