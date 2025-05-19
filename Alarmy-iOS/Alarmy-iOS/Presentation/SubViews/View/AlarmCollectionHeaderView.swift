@@ -35,7 +35,7 @@ extension AlarmCollectionHeaderView {
         layer.masksToBounds = true
 
         soundImageView.do {
-            $0.image = UIImage(named: "icn_home_sound")
+            $0.image = .icnHomeSound
         }
         
         invitationBenefitLabel.do {
@@ -51,7 +51,7 @@ extension AlarmCollectionHeaderView {
         }
         
         shareButton.do {
-            $0.setImage(UIImage(named: "icon_home_arrow"), for: .normal)
+            $0.setImage(.iconHomeArrow, for: .normal)
         }
     }
     

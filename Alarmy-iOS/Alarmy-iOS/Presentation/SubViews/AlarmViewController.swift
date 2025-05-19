@@ -60,7 +60,7 @@ extension AlarmViewController {
         view.backgroundColor = UIColor.appColor(.grey950)
 
         homeHeaderButton.do {
-            $0.setImage(UIImage(named: "icon_header_menu"), for: .normal)
+            $0.setImage(.iconHeaderMenu, for: .normal)
         }
         
         nextAlarmButton.do {
@@ -73,7 +73,7 @@ extension AlarmViewController {
             ]))
 
             config.attributedTitle = attributedTitle
-            config.image = UIImage(named: "icon_home_arrow")
+            config.image = .iconHomeArrow
             config.baseBackgroundColor = UIColor.appColor(.grey900)
             config.imagePlacement = .trailing
             config.imagePadding = 4

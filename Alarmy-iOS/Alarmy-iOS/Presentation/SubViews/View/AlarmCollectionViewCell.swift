@@ -51,15 +51,14 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         }
 
         let missionImageName = toggleButton.isSelected
-            ? "icon_alarm_null_on"
-            : "icon_alarm_null_off"
+        ? UIImage.iconAlarmNullOn : UIImage.iconAlarmNullOff
 
         let missionTitleColor = toggleButton.isSelected
             ? UIColor.appColor(.grey100)
             : UIColor.appColor(.grey500)
 
         var config = UIButton.Configuration.plain()
-        config.image = UIImage(named: missionImageName)
+        config.image = missionImageName
         config.imagePlacement = .trailing
         config.imagePadding = 4
         config.contentInsets = .zero
@@ -73,9 +72,8 @@ final class AlarmCollectionViewCell: UICollectionViewCell {
         missionButton.configuration = config
 
         let menuImageName = toggleButton.isSelected
-            ? "icon_alarm_menu_on"
-            : "icon_alarm_menu_off"
-        menuButton.setImage(UIImage(named: menuImageName), for: .normal)
+            ? UIImage.iconAlarmMenuOn : UIImage.iconAlarmMenuOff
+        menuButton.setImage(menuImageName, for: .normal)
     }
 }
 
@@ -112,7 +110,7 @@ extension AlarmCollectionViewCell {
                 .foregroundColor: UIColor.appColor(.grey500)
             ]))
             
-            config.image = UIImage(named: "icon_alarm_null_off")
+            config.image = .iconAlarmNullOff
             config.imagePlacement = .trailing
             config.imagePadding = 4
             
@@ -125,13 +123,13 @@ extension AlarmCollectionViewCell {
         }
         
         toggleButton.do {
-            $0.setImage(UIImage(named: "boolean_home_off"), for: .normal)
-            $0.setImage(UIImage(named: "boolean_home_on"), for: .selected)
+            $0.setImage(UIImage.booleanHomeOff, for: .normal)
+            $0.setImage(UIImage.booleanHomeOn, for: .selected)
             $0.addTarget(self, action: #selector(toggleButtonTapped), for: .touchUpInside)
         }
         
         menuButton.do {
-            $0.setImage(UIImage(named: "icon_alarm_menu_on"), for: .normal)
+            $0.setImage(UIImage.iconAlarmMenuOn, for: .normal)
         }
     }
     
