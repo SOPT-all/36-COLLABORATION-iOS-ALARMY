@@ -45,8 +45,8 @@ final class EtcSettingView: UIView {
     }
 }
 
-extension EtcSettingView {
-    private func setStyle() {
+extension EtcSettingView: ViewConfigurable {
+    func setStyle() {
         delayAlarmLabel.do {
             $0.text = "알람 미루기"
             $0.textColor = .appColor(.grey100)
@@ -130,7 +130,7 @@ extension EtcSettingView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             delayAlarmStackView,
             memoStackView,
@@ -168,7 +168,7 @@ extension EtcSettingView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         delayAlarmStackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.leading.equalToSuperview().inset(20)

@@ -32,9 +32,9 @@ final class HeaderView: UIView {
     }
 }
 
-extension HeaderView {
+extension HeaderView: ViewConfigurable {
     // MARK: - UI Function
-    private func setStyle() {
+    func setStyle() {
         xButton.do {
             $0.setImage(.icnSettingClose, for: .normal)
             $0.tintColor = .appColor(.white)
@@ -58,7 +58,7 @@ extension HeaderView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             headerBackgroundView,
             headerStackView
@@ -70,7 +70,7 @@ extension HeaderView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         headerBackgroundView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()

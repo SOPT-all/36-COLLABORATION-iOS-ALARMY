@@ -47,9 +47,9 @@ final class TimeAndDaySettingView: UIView {
     }
 }
 
-extension TimeAndDaySettingView {
+extension TimeAndDaySettingView: ViewConfigurable {
     // MARK: - UI Function
-    private func setStyle() {
+    func setStyle() {
         timePicker.do {
             $0.preferredDatePickerStyle = .wheels
             $0.datePickerMode = .time
@@ -121,7 +121,7 @@ extension TimeAndDaySettingView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             timePicker,
             everyDayCheckStackView,
@@ -150,7 +150,7 @@ extension TimeAndDaySettingView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         timePicker.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
