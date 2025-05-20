@@ -34,6 +34,12 @@ final class AlarmSettingView: UIView {
         setLayout()
         
         isUserInteractionEnabled = true
+        
+        timeAndDaySettingView.isTimeChanged = { [weak self] newDate in
+            self?.headerView.updateAlarmLabel(to: newDate)
+        }
+        
+        timeAndDaySettingView.isTimeChanged?(Date())
     }
     
     required init?(coder: NSCoder) {

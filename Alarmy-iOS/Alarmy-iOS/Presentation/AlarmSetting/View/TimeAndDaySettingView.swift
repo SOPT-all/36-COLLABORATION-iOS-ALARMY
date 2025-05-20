@@ -11,6 +11,9 @@ import SnapKit
 import Then
 
 final class TimeAndDaySettingView: UIView {
+    // MARK: - Properties
+    var isTimeChanged: ((Date) -> Void)?
+    
     // MARK: - UI Properties
     private lazy var timePicker = UIDatePicker()
     
@@ -36,6 +39,7 @@ final class TimeAndDaySettingView: UIView {
         setStyle()
         setHierarchy()
         setLayout()
+        setAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -165,6 +169,26 @@ extension TimeAndDaySettingView {
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(self.snp.bottom)
+        }
+    }
+}
+
+// MARK: - Functions / objc
+extension TimeAndDaySettingView {
+    private func setAddTarget() {
+        timePicker.addTarget(self, action: #selector(timePickerChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func timePickerChanged(_ sender: UIDatePicker) {
+        let nowComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        var userComponents = Calendar.current.dateComponents([.hour, .minute], from: sender.date)
+        userComponents.year = nowComponents.year
+        userComponents.month = nowComponents.month
+        userComponents.day = nowComponents.day
+        
+        if let newDate = Calendar.current.date(from: userComponents) {
+            isTimeChanged?(newDate)
         }
     }
 }
