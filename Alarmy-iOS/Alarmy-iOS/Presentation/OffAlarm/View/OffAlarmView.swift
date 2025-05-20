@@ -162,7 +162,6 @@ extension OffAlarmView {
             $0.leading.equalToSuperview().inset(11)
             $0.width.equalTo(32)
             $0.height.equalTo(24)
-            
         }
         
         postponeLabel.snp.makeConstraints {
@@ -200,7 +199,7 @@ extension OffAlarmView {
 }
 
 /// label에 패딩을 주기 위한 base class
-class CountBaseLabel: UILabel {
+final class CountBaseLabel: UILabel {
     private var padding = UIEdgeInsets(top: 3, left: 7, bottom: 3, right: 7)
     
     convenience init(padding: UIEdgeInsets) {
