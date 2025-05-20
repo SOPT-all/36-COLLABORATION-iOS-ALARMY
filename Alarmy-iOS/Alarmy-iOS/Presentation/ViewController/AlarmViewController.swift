@@ -7,11 +7,135 @@
 
 import UIKit
 
-class AlarmViewController: UIViewController {
+import SnapKit
+import Then
 
+final class AlarmViewController: UIViewController {
+    
+    // MARK: - UI Properties
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let homeHeaderButton = UIButton()
+    private let nextAlarmButton = UIButton()
+    private let timeAlarmLabel = UILabel()
+    private let alarmCollectionView = AlarmCollectionView()
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        
+        setStyle()
+        setHierarchy()
+        setLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.updateCollectionViewHeight()
+        }
+    }
+}
+
+extension AlarmViewController {
+    // MARK: - UI Function
+    private func updateCollectionViewHeight() {
+        let totalHeight = alarmCollectionView.calculatedAlarmCollectionViewHeight()
+
+        alarmCollectionView.snp.updateConstraints {
+            $0.height.equalTo(totalHeight)
+        }
+        
+        contentView.snp.updateConstraints {
+            $0.bottom.equalTo(alarmCollectionView.snp.bottom).offset(40)
+        }
+    }
+
+    private func setStyle() {
+        view.backgroundColor = UIColor.appColor(.grey950)
+
+        homeHeaderButton.do {
+            $0.setImage(.iconHeaderMenu, for: .normal)
+        }
+        
+        nextAlarmButton.do {
+            var config = UIButton.Configuration.filled()
+            let title = "다음 알람"
+
+            let attributedTitle = AttributedString(title, attributes: AttributeContainer([
+                .font: UIFont.body4,
+                .foregroundColor: UIColor.white
+            ]))
+
+            config.attributedTitle = attributedTitle
+            config.image = .iconHomeArrow
+            config.baseBackgroundColor = UIColor.appColor(.grey900)
+            config.imagePlacement = .trailing
+            config.imagePadding = 4
+            config.cornerStyle = .capsule
+            config.contentInsets = .zero
+
+            $0.configuration = config
+        }
+        
+        timeAlarmLabel.do {
+            $0.text = "9시간 22분 후에 울려요"
+            $0.textColor = UIColor.appColor(.grey100)
+            $0.font = .title5
+        }
+    }
+    
+    private func setHierarchy() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubViews(
+            homeHeaderButton,
+            nextAlarmButton,
+            timeAlarmLabel,
+            alarmCollectionView
+        )
+    }
+    
+    private func setLayout() {
+        scrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.bottom.equalTo(alarmCollectionView.snp.bottom).offset(40)
+            $0.width.equalToSuperview()
+        }
+        
+        homeHeaderButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(-20)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.height.equalTo(32)
+        }
+        
+        nextAlarmButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalTo(homeHeaderButton.snp.bottom).offset(16)
+            $0.width.greaterThanOrEqualTo(76)
+            $0.height.equalTo(30)
+        }
+        
+        timeAlarmLabel.snp.makeConstraints {
+            $0.leading.equalTo(nextAlarmButton.snp.leading).offset(8)
+            $0.top.equalTo(nextAlarmButton.snp.bottom).offset(16)
+        }
+        
+        alarmCollectionView.snp.remakeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-14)
+            $0.top.equalTo(timeAlarmLabel.snp.bottom).offset(32)
+            $0.height.equalTo(1)
+        }
+    }
 }
