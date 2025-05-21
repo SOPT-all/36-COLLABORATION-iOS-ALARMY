@@ -5,7 +5,7 @@
 //  Created by 최주리 on 5/21/25.
 //
 
-import SwiftUI
+import Foundation
 
 struct WeatherEntity {
     let temperature: Int

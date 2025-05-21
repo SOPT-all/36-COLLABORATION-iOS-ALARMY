@@ -128,8 +128,8 @@ extension HeaderInformationView: ViewConfigurable {
     
     func setLayout() {
         informationStackView.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
             $0.top.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
         
