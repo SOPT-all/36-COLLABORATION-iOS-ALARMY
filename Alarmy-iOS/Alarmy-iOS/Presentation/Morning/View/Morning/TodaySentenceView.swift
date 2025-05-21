@@ -30,6 +30,31 @@ final class TodaySentenceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+// MARK: - Functions
+extension TodaySentenceView {
+    func bindImage(_ num: Int) {
+        let image: UIImage
+        
+        switch num {
+        case 1:
+            image = .quote1
+        case 2:
+            image = .quote2
+        case 3:
+            image = .quote3
+        case 4:
+            image = .quote4
+        case 5:
+            image = .quote5
+        case 6:
+            image = .quote6
+        default:
+            image = .quote1
+        }
+        
+        todayImageView.image = image
+    }
+}
 
 // MARK: - ViewConfigurable protocol
 extension TodaySentenceView: ViewConfigurable {
