@@ -64,7 +64,6 @@ extension HeaderInformationView: ViewConfigurable {
             $0.axis = .vertical
             $0.spacing = 12
             $0.alignment = .center
-            $0.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0)
         }
         
         dateLabel.do {
@@ -117,6 +116,7 @@ extension HeaderInformationView: ViewConfigurable {
             regionLabel,
             locationView
         )
+        
         temperatureView.addSubViews(
             temperatureLabel,
             weatherImageView,
@@ -128,12 +128,9 @@ extension HeaderInformationView: ViewConfigurable {
     
     func setLayout() {
         informationStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
             $0.centerX.equalToSuperview()
-        }
-        
-        temperatureView.snp.makeConstraints {
-            $0.height.equalTo(80)
         }
         
         temperatureLabel.snp.makeConstraints {
@@ -143,6 +140,7 @@ extension HeaderInformationView: ViewConfigurable {
         
         weatherImageView.snp.makeConstraints {
             $0.top.equalTo(temperatureLabel.snp.bottom).offset(4)
+            $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
         

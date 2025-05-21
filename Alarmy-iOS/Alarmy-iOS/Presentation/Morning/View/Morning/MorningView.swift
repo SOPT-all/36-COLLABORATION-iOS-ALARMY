@@ -69,7 +69,7 @@ extension MorningView: ViewConfigurable {
         }
         
         informationView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(60)
+            $0.top.leading.trailing.equalToSuperview().inset(70)
             $0.height.equalTo(202)
         }
         
