@@ -15,7 +15,7 @@ final class TimeAndDaySettingView: UIView {
     var isTimeChanged: ((Date) -> Void)?
     
     // MARK: - UI Properties
-    private lazy var timePicker = UIDatePicker()
+    private var timePicker = UIDatePicker()
     
     private let selectedDayLabel = UILabel()
     private let everyDayCheckButton = UIButton()
