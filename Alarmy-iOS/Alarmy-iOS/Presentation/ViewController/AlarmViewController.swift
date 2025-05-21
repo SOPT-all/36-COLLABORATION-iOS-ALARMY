@@ -12,6 +12,10 @@ import Then
 
 final class AlarmViewController: UIViewController {
     
+    // MARK: - Properties
+    private var isDimmed: Bool = false
+    private var gradient = CAGradientLayer()
+    
     // MARK: - UI Properties
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -19,6 +23,22 @@ final class AlarmViewController: UIViewController {
     private let nextAlarmButton = UIButton()
     private let timeAlarmLabel = UILabel()
     private let alarmCollectionView = AlarmCollectionView()
+    
+    private let plusButton = UIButton()
+    private let dimView = UIView()
+    private let alarmButtonStackView = UIStackView()
+    private let clockButton = AlarmCircleButton(
+        title: "알람",
+        image: .iconFloatingClock
+    )
+    private let medButton = AlarmCircleButton(
+        title: "약 알람",
+        image: .iconFloatingMed
+    )
+    private let quickButton = AlarmCircleButton(
+        title: "퀵 알람",
+        image: .iconFloatingQuick
+    )
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -39,6 +59,7 @@ final class AlarmViewController: UIViewController {
         DispatchQueue.main.async {
             self.updateCollectionViewHeight()
         }
+        setGradient()
     }
 }
 
@@ -46,7 +67,7 @@ extension AlarmViewController {
     // MARK: - UI Function
     private func updateCollectionViewHeight() {
         let totalHeight = alarmCollectionView.calculatedAlarmCollectionViewHeight()
-
+        
         alarmCollectionView.snp.updateConstraints {
             $0.height.equalTo(totalHeight)
         }
@@ -55,10 +76,21 @@ extension AlarmViewController {
             $0.bottom.equalTo(alarmCollectionView.snp.bottom).offset(40)
         }
     }
-
+    
+    private func setGradient() {
+        let colors: [CGColor] = [
+            .init(red: 19/255, green: 20/255, blue: 24/255, alpha: 0.9),
+            .init(red: 19/255, green: 20/255, blue: 24/255, alpha: 0)
+        ]
+        gradient.colors = colors
+        gradient.startPoint = CGPoint(x: 0.5, y: 1)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0)
+        gradient.frame = dimView.bounds
+    }
+    
     private func setStyle() {
         view.backgroundColor = UIColor.appColor(.grey950)
-
+        
         homeHeaderButton.do {
             $0.setImage(.iconHeaderMenu, for: .normal)
         }
@@ -66,12 +98,12 @@ extension AlarmViewController {
         nextAlarmButton.do {
             var config = UIButton.Configuration.filled()
             let title = "다음 알람"
-
+            
             let attributedTitle = AttributedString(title, attributes: AttributeContainer([
                 .font: UIFont.body4,
                 .foregroundColor: UIColor.white
             ]))
-
+            
             config.attributedTitle = attributedTitle
             config.image = .iconHomeArrow
             config.baseBackgroundColor = UIColor.appColor(.grey900)
@@ -79,7 +111,7 @@ extension AlarmViewController {
             config.imagePadding = 4
             config.cornerStyle = .capsule
             config.contentInsets = .zero
-
+            
             $0.configuration = config
         }
         
@@ -88,10 +120,45 @@ extension AlarmViewController {
             $0.textColor = UIColor.appColor(.grey100)
             $0.font = .title5
         }
+        
+        plusButton.do {
+            var config = UIButton.Configuration.filled()
+            
+            config.image = .iconFloatingPlus
+            config.baseBackgroundColor = UIColor.appColor(.redPrimary)
+            config.imagePadding = 12
+            config.contentInsets = .zero
+            config.cornerStyle = .capsule
+            
+            $0.configuration = config
+            $0.addTarget(self, action: #selector(plustButtonTapped), for: .touchUpInside)
+        }
+        
+        dimView.do {
+            $0.layer.addSublayer(gradient)
+            $0.isUserInteractionEnabled = false
+            $0.layer.opacity = 0
+        }
+        
+        alarmButtonStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 12
+            $0.isHidden = true
+        }
+        
+        clockButton.do {
+            $0.button.addTarget(self, action: #selector(clockButtonTapped), for: .touchUpInside)
+        }
     }
     
     private func setHierarchy() {
-        view.addSubview(scrollView)
+        view.addSubViews(
+            scrollView,
+            dimView,
+            plusButton,
+            alarmButtonStackView
+        )
+        
         scrollView.addSubview(contentView)
         
         contentView.addSubViews(
@@ -99,6 +166,12 @@ extension AlarmViewController {
             nextAlarmButton,
             timeAlarmLabel,
             alarmCollectionView
+        )
+        
+        alarmButtonStackView.addArrangedSubViews(
+            clockButton,
+            medButton,
+            quickButton
         )
     }
     
@@ -137,5 +210,68 @@ extension AlarmViewController {
             $0.top.equalTo(timeAlarmLabel.snp.bottom).offset(32)
             $0.height.equalTo(1)
         }
+        
+        dimView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        plusButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.size.equalTo(52)
+        }
+        
+        alarmButtonStackView.snp.makeConstraints {
+            $0.bottom.equalTo(plusButton.snp.top).offset(-12)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+    }
+}
+
+// MARK: - objc
+extension AlarmViewController {
+    @objc
+    private func plustButtonTapped() {
+        if isDimmed {
+            UIView.animate(withDuration: 0.4) {
+                self.plusButton.transform = .identity
+                self.dimView.layer.opacity = 0
+            }
+            
+            for (index, button) in alarmButtonStackView.arrangedSubviews.enumerated().reversed() {
+                UIView.animate(withDuration: 0.4, delay: Double(index) * 0.1, animations: {
+                    button.alpha = 0
+                    button.transform = CGAffineTransform(translationX: 0, y: 20)
+                }) { _ in
+                    self.alarmButtonStackView.isHidden = true
+                }
+            }
+        } else {
+            UIView.animate(withDuration: 0.4) {
+                self.plusButton.transform = CGAffineTransform(rotationAngle: .pi/4)
+                self.dimView.layer.opacity = 1
+            }
+            
+            alarmButtonStackView.isHidden = false
+            for (index, button) in alarmButtonStackView.arrangedSubviews.enumerated() {
+                button.alpha = 0
+                button.transform = CGAffineTransform(translationX: 0, y: 20)
+                
+                UIView.animate(withDuration: 0.5, delay: Double(index) * 0.1) {
+                    button.alpha = 1
+                    button.transform = .identity
+                }
+            }
+        }
+        
+        isDimmed.toggle()
+    }
+    
+    @objc
+    private func clockButtonTapped() {
+        let viewController = AlarmSettingViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        
+        present(viewController, animated: true)
     }
 }
