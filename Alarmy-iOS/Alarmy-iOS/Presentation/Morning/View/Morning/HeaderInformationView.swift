@@ -40,6 +40,23 @@ class HeaderInformationView: UIView {
 
 }
 
+// MARK: - Functions
+extension HeaderInformationView {
+    func dataBind(_ weather: WeatherEntity) {
+        temperatureLabel.text = "\(weather.temperature)°C"
+        weatherImageView.image = UIImage(resource: WeatherIcon.codeToImage(weather.code))
+    }
+    
+    private func getDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 dd일 (E)"
+        
+        let current = dateFormatter.string(from: Date())
+        return current
+    }
+}
+
 // MARK: - ViewConfigurable protocol
 extension HeaderInformationView: ViewConfigurable {
     func setStyle() {
@@ -47,17 +64,15 @@ extension HeaderInformationView: ViewConfigurable {
             $0.axis = .vertical
             $0.spacing = 12
             $0.alignment = .center
-            $0.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0)
         }
         
         dateLabel.do {
-            $0.text = "4월 21일 (월)"
+            $0.text = getDate()
             $0.font = .title10
             $0.textColor = .white
         }
         
         temperatureLabel.do {
-            $0.text = "17°C"
             $0.font = .title2
             $0.textColor = .white
         }
@@ -101,6 +116,7 @@ extension HeaderInformationView: ViewConfigurable {
             regionLabel,
             locationView
         )
+        
         temperatureView.addSubViews(
             temperatureLabel,
             weatherImageView,
@@ -112,12 +128,9 @@ extension HeaderInformationView: ViewConfigurable {
     
     func setLayout() {
         informationStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
-        }
-        
-        temperatureView.snp.makeConstraints {
-            $0.height.equalTo(80)
         }
         
         temperatureLabel.snp.makeConstraints {
@@ -127,6 +140,7 @@ extension HeaderInformationView: ViewConfigurable {
         
         weatherImageView.snp.makeConstraints {
             $0.top.equalTo(temperatureLabel.snp.bottom).offset(4)
+            $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
         

@@ -15,10 +15,10 @@ final class MorningView: UIView {
     // MARK: - Properties
     private let backgroundImageView = UIImageView()
     
-    private let informationView = HeaderInformationView()
+    let informationView = HeaderInformationView()
     
     private let contentStackView = UIStackView()
-    private let todaySentenceView = TodaySentenceView()
+    let todaySentenceView = TodaySentenceView()
     private let morningMoodView = MorningMoodView()
     private let stellaView = StellaView()
      
@@ -69,7 +69,7 @@ extension MorningView: ViewConfigurable {
         }
         
         informationView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(60)
+            $0.top.leading.trailing.equalToSuperview().inset(70)
             $0.height.equalTo(202)
         }
         

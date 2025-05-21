@@ -15,7 +15,9 @@ final class BaseService {
         endPoint: EndPoint,
         body: Encodable? = nil
     ) async throws -> Response {
-        guard let url = URL(string: endPoint.url) else {
+        let url = Bundle.main.baseURL + endPoint.url
+
+        guard let url = URL(string: url) else {
             throw NetworkError.urlError
         }
         

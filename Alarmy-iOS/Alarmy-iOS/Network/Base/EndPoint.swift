@@ -8,14 +8,14 @@
 import Foundation
 
 enum EndPoint {
-    // get 예시
-    case fetch
+    case fetchWeather
+    case fetchQuote
     // post 예시
     case login
     
     var restType: HTTPMethodType {
         switch self {
-        case .fetch:
+        case .fetchWeather, .fetchQuote:
             return .get
         case .login:
             return .post
@@ -24,8 +24,10 @@ enum EndPoint {
     
     var url: String {
         switch self {
-        case .fetch:
-            return ""
+        case .fetchWeather:
+            return "/api/v1/weather"
+        case .fetchQuote:
+            return "/api/v1/phrase"
         case .login:
             return ""
         }
@@ -33,9 +35,9 @@ enum EndPoint {
     
     var header: [String: String] {
         switch self {
-        case .fetch:
+        case .fetchWeather:
             HeaderType.none.value
-        case .login:
+        case .fetchQuote, .login:
             HeaderType.auth.value
         }
     }
