@@ -8,6 +8,9 @@
 import UIKit
 
 final class MorningViewController: UIViewController {
+    
+    private var weather: WeatherEntity?
+    private let service: MorningProtocol = DefaultMorningService()
 
     private let rootView = MorningView()
     
@@ -18,6 +21,18 @@ final class MorningViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchWeather()
     }
     
+}
+
+extension MorningViewController {
+    private func fetchWeather() {
+        Task {
+            weather = try await service.fetchWeather()
+            guard let weather else { return }
+            rootView.informationView.dataBind(weather)
+        }
+    }
 }

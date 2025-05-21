@@ -40,6 +40,23 @@ class HeaderInformationView: UIView {
 
 }
 
+// MARK: - Functions
+extension HeaderInformationView {
+    func dataBind(_ weather: WeatherEntity) {
+        temperatureLabel.text = "\(weather.temperature)°C"
+        weatherImageView.image = UIImage(resource: WeatherIcon.codeToImage(weather.code))
+    }
+    
+    private func getDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 dd일 (E)"
+        
+        let current = dateFormatter.string(from: Date())
+        return current
+    }
+}
+
 // MARK: - ViewConfigurable protocol
 extension HeaderInformationView: ViewConfigurable {
     func setStyle() {
@@ -51,13 +68,12 @@ extension HeaderInformationView: ViewConfigurable {
         }
         
         dateLabel.do {
-            $0.text = "4월 21일 (월)"
+            $0.text = getDate()
             $0.font = .title10
             $0.textColor = .white
         }
         
         temperatureLabel.do {
-            $0.text = "17°C"
             $0.font = .title2
             $0.textColor = .white
         }

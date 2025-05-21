@@ -17,7 +17,7 @@ final class DefaultTempService: TempServiceProtocol {
     
     func getTest() async throws -> String {
         do {
-            let response: TempModelResponse = try await network.request(endPoint: .fetch)
+            let response: TempModelResponse = try await network.request(endPoint: .fetchWeather)
             
             return response.name
         } catch {

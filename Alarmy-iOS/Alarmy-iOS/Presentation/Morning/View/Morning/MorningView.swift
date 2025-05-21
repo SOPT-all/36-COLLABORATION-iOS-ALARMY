@@ -15,10 +15,10 @@ final class MorningView: UIView {
     // MARK: - Properties
     private let backgroundImageView = UIImageView()
     
-    private let informationView = HeaderInformationView()
+    let informationView = HeaderInformationView()
     
     private let contentStackView = UIStackView()
-    private let todaySentenceView = TodaySentenceView()
+    let todaySentenceView = TodaySentenceView()
     private let morningMoodView = MorningMoodView()
     private let stellaView = StellaView()
      
