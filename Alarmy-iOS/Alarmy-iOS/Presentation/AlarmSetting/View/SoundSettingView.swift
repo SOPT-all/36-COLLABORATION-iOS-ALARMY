@@ -53,8 +53,8 @@ final class SoundSettingView: UIView {
     }
 }
 
-extension SoundSettingView {
-    private func setStyle() {
+extension SoundSettingView: ViewConfigurable {
+    func setStyle() {
         minimumVolumeImageView.do {
             $0.image = .icnSettingSoundOff
         }
@@ -142,7 +142,7 @@ extension SoundSettingView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             volumeAndVibrationStackView,
             soundStackView,
@@ -178,7 +178,7 @@ extension SoundSettingView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         minimumVolumeImageView.snp.makeConstraints {
             $0.width.height.equalTo(24)
         }
@@ -215,9 +215,10 @@ extension SoundSettingView {
             $0.bottom.equalTo(self.snp.bottom)
         }
     }
-    
+}
+
+extension SoundSettingView {
     // MARK: - Function
-    
     private func setAddTarget() {
         vibrationButton.addTarget(self, action: #selector(vibrationButtonTapped), for: .touchUpInside)
         volumeSlider.addTarget(self, action: #selector(volumeSliderChanged(_:)), for: .valueChanged)
@@ -243,5 +244,4 @@ extension SoundSettingView {
             lastSnapValue = newValue
         }
     }
-    
 }

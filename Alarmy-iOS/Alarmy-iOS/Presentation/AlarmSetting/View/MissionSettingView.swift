@@ -38,10 +38,9 @@ final class MissionSettingView: UIView {
     }
 }
 
-extension MissionSettingView {
-    
+extension MissionSettingView: ViewConfigurable {
     // MARK: - UI Function
-    private func setStyle() {
+    func setStyle() {
         missionLabel.do {
             $0.text = "미션"
             $0.textColor = .appColor(.grey100)
@@ -75,7 +74,7 @@ extension MissionSettingView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             missionLabelStackView,
             missionCollectionView
@@ -92,7 +91,7 @@ extension MissionSettingView {
 //        )
     }
     
-    private func setLayout() {
+    func setLayout() {
         missionLabelStackView.snp.makeConstraints {
             $0.top.equalTo(missionCollectionView.snp.top).offset(10.5)
             $0.leading.equalToSuperview().inset(20)
@@ -113,9 +112,10 @@ extension MissionSettingView {
 //            $0.bottom.equalTo(self.snp.bottom)
 //        }
     }
-    
+}
+
+extension MissionSettingView {
     // MARK: - Function
-    
     private func register() {
         missionCollectionView.register(
             MissionCollectionViewCell.self,

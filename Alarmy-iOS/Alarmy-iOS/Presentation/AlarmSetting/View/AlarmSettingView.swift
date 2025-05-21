@@ -34,6 +34,12 @@ final class AlarmSettingView: UIView {
         setLayout()
         
         isUserInteractionEnabled = true
+        
+        timeAndDaySettingView.isTimeChanged = { [weak self] newDate in
+            self?.headerView.updateAlarmLabel(to: newDate)
+        }
+        
+        timeAndDaySettingView.isTimeChanged?(Date())
     }
     
     required init?(coder: NSCoder) {
@@ -41,9 +47,9 @@ final class AlarmSettingView: UIView {
     }
 }
 
-extension AlarmSettingView {
+extension AlarmSettingView: ViewConfigurable {
     // MARK: - UI Function
-    private func setStyle() {
+    func setStyle() {
         alarmSettingScrollView.isScrollEnabled = true
         
         saveButton.do {
@@ -54,7 +60,7 @@ extension AlarmSettingView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             headerView,
             alarmSettingScrollView,
@@ -76,7 +82,7 @@ extension AlarmSettingView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         headerView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(62)
             $0.leading.trailing.equalToSuperview()

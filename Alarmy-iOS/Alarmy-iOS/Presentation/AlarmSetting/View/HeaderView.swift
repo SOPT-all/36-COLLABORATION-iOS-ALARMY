@@ -32,9 +32,9 @@ final class HeaderView: UIView {
     }
 }
 
-extension HeaderView {
+extension HeaderView: ViewConfigurable {
     // MARK: - UI Function
-    private func setStyle() {
+    func setStyle() {
         xButton.do {
             $0.setImage(.icnSettingClose, for: .normal)
             $0.tintColor = .appColor(.white)
@@ -58,7 +58,7 @@ extension HeaderView {
         }
     }
     
-    private func setHierarchy() {
+    func setHierarchy() {
         addSubViews(
             headerBackgroundView,
             headerStackView
@@ -70,7 +70,7 @@ extension HeaderView {
         )
     }
     
-    private func setLayout() {
+    func setLayout() {
         headerBackgroundView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
@@ -82,5 +82,25 @@ extension HeaderView {
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview()
         }
+    }
+}
+
+extension HeaderView {
+    // to : 가독성을 위한 매개변수 레이블 ! -> 함수의 의도를 정확히 표현할 수 있도록 도움
+    func updateAlarmLabel(to alarmDate: Date) {
+        let now = Date()
+        var interval = alarmDate.timeIntervalSince(now)
+        
+        // 현재 시각보다 알람 설정 시각이 이전인 경우, 내일로 설정하도록 함 !
+        if interval < 0 {
+            if let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: alarmDate) {
+                interval = tomorrow.timeIntervalSince(now)
+            }
+        }
+        
+        let hours = Int(interval) / 3600
+        let minutes = (Int(interval) % 3600) / 60
+        
+        timeUntilAlarmLabel.text = "\(hours)시간 \(minutes)분 후에 울려요"
     }
 }
