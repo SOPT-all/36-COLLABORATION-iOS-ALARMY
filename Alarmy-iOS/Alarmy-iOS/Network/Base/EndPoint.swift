@@ -13,7 +13,7 @@ enum EndPoint {
     // post 예시
     case login
     case alarms
-    case alarmCheck
+    case alarmCheck(currentTime: String)
     
     var restType: HTTPMethodType {
         switch self {
@@ -34,8 +34,8 @@ enum EndPoint {
             return ""
         case .alarms:
             return "/api/v1/alarms"
-        case .alarmCheck:
-            return "/api/v1/alarm/check"
+        case .alarmCheck(let currentTime):
+            return "/api/v1/alarm/check?currentTime=\(currentTime)"
         }
     }
     
