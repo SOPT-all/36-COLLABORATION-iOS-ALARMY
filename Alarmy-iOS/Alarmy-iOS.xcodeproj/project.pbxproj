@@ -153,8 +153,6 @@
 /* Begin XCBuildConfiguration section */
 		CBFB7E5B2DCDC2D500432625 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = CBFB7E492DCDC2D200432625 /* Alarmy-iOS */;
-			baseConfigurationReferenceRelativePath = Resource/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

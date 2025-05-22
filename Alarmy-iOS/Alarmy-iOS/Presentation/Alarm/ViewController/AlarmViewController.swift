@@ -133,7 +133,7 @@ extension AlarmViewController {
             config.cornerStyle = .capsule
             
             $0.configuration = config
-            $0.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(plustButtonTapped), for: .touchUpInside)
         }
         
         dimView.do {
@@ -233,7 +233,7 @@ extension AlarmViewController {
 // MARK: - objc
 extension AlarmViewController {
     @objc
-    private func plusButtonTapped() {
+    private func plustButtonTapped() {
         if isDimmed {
             UIView.animate(withDuration: 0.4) {
                 self.plusButton.transform = .identity
@@ -273,20 +273,11 @@ extension AlarmViewController {
     private func clockButtonTapped() {
         let viewController = AlarmSettingViewController()
         viewController.modalPresentationStyle = .fullScreen
-        viewController.delegate = self
         
         present(viewController, animated: true)
     }
 }
 
-extension AlarmViewController: AlarmSettingViewControllerDelegate {
-    func alarmSettingViewControllerDidDismiss() {
-        if isDimmed {
-            plusButtonTapped()
-            
-        }
-    }
-}
 // MARK: - Network
 extension AlarmViewController {
     private func fetchAlarmList() {
@@ -297,4 +288,3 @@ extension AlarmViewController {
         }
     }
 }
-

@@ -10,7 +10,6 @@ import Foundation
 enum EndPoint {
     case fetchWeather
     case fetchQuote
-    case createAlarm
     // post 예시
     case login
     case alarms
@@ -19,7 +18,7 @@ enum EndPoint {
         switch self {
         case .fetchWeather, .fetchQuote, .alarms:
             return .get
-        case .createAlarm, .login:
+        case .login:
             return .post
         }
     }
@@ -30,8 +29,6 @@ enum EndPoint {
             return "/api/v1/weather"
         case .fetchQuote:
             return "/api/v1/phrase"
-        case .createAlarm:
-            return "/api/v1/alarm"
         case .login:
             return ""
         case .alarms:
@@ -43,7 +40,7 @@ enum EndPoint {
         switch self {
         case .fetchWeather:
             HeaderType.none.value
-        case .fetchQuote, .createAlarm, .alarms, .login:
+        case .fetchQuote, .alarms, .login:
             HeaderType.auth.value
         }
     }
