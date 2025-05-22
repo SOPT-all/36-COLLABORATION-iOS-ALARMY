@@ -12,10 +12,11 @@ enum EndPoint {
     case fetchQuote
     // post 예시
     case login
+    case alarms
     
     var restType: HTTPMethodType {
         switch self {
-        case .fetchWeather, .fetchQuote:
+        case .fetchWeather, .fetchQuote, .alarms:
             return .get
         case .login:
             return .post
@@ -30,6 +31,8 @@ enum EndPoint {
             return "/api/v1/phrase"
         case .login:
             return ""
+        case .alarms:
+            return "/api/v1/alarms"
         }
     }
     
@@ -37,7 +40,7 @@ enum EndPoint {
         switch self {
         case .fetchWeather:
             HeaderType.none.value
-        case .fetchQuote, .login:
+        case .fetchQuote, .login, .alarms:
             HeaderType.auth.value
         }
     }

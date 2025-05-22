@@ -52,6 +52,7 @@ extension AlarmCollectionHeaderView {
         
         shareButton.do {
             $0.setImage(.iconHomeArrow, for: .normal)
+            $0.tintColor = UIColor.appColor(.grey100)
         }
     }
     

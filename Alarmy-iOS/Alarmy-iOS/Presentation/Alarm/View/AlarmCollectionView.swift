@@ -10,7 +10,7 @@ import UIKit
 final class AlarmCollectionView: UICollectionView {
     
     // MARK: - Properties
-    private var itemData = AlarmModel.dummy()
+    private var itemData: [AlarmEntity] = []
     private static let cellHeight: CGFloat = 116
     private static let cellSpacing: CGFloat = 8
     private static let cellWidth: CGFloat = 345
@@ -44,6 +44,11 @@ final class AlarmCollectionView: UICollectionView {
         register(AlarmCollectionHeaderView.self,
                  forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                  withReuseIdentifier: AlarmCollectionHeaderView.identifier)
+    }
+    
+    func updateData(with data: [AlarmEntity]) {
+        self.itemData = data
+        self.reloadData()
     }
 
     func collectionView(_ collectionView: UICollectionView,
