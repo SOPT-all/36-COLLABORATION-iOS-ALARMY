@@ -196,7 +196,6 @@ extension TimeAndDaySettingView {
             
             guard let hour = userComponents.hour, let minute = userComponents.minute else { return }
             
-            print(minute)
             if hour < 10 {
                 newHour = "0" + String(hour)
             } else {
