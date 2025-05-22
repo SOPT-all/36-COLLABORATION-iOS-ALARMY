@@ -220,7 +220,7 @@
 		CBFB7E5D2DCDC2D500432625 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = CBFB7E492DCDC2D200432625 /* Alarmy-iOS */;
-			baseConfigurationReferenceRelativePath = Resource/Config.xcconfig;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -284,6 +284,8 @@
 		};
 		CBFB7E5E2DCDC2D500432625 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = CBFB7E492DCDC2D200432625 /* Alarmy-iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

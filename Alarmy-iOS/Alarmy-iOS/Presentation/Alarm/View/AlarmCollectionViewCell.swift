@@ -82,22 +82,20 @@ extension AlarmCollectionViewCell {
     private func setStyle() {
         dayOfWeekLabel.do {
             $0.font = .body3
-            $0.textColor = UIColor.appColor(.grey500)
+            $0.textColor = UIColor.appColor(.bluePrimary)
             $0.text = Self.dayOfWeekList.joined(separator: " ")
             $0.textAlignment = .center
         }
         
         ampmLabel.do {
             $0.font = .title3
-            $0.textColor = UIColor.appColor(.grey500)
-            $0.text = "오전"
+            $0.textColor = UIColor.appColor(.grey100)
             $0.textAlignment = .center
         }
         
         timeLabel.do {
             $0.font = .title2
-            $0.textColor = UIColor.appColor(.grey500)
-            $0.text = "7:20"
+            $0.textColor = UIColor.appColor(.grey100)
             $0.textAlignment = .center
         }
         
@@ -107,7 +105,7 @@ extension AlarmCollectionViewCell {
 
             config.attributedTitle = AttributedString(title, attributes: AttributeContainer([
                 .font: UIFont.body4,
-                .foregroundColor: UIColor.appColor(.grey500)
+                .foregroundColor: UIColor.appColor(.grey100)
             ]))
             
             config.image = .iconAlarmNullOff
@@ -123,6 +121,7 @@ extension AlarmCollectionViewCell {
         }
         
         toggleButton.do {
+            $0.isSelected = true
             $0.setImage(UIImage.booleanHomeOff, for: .normal)
             $0.setImage(UIImage.booleanHomeOn, for: .selected)
             $0.addTarget(self, action: #selector(toggleButtonTapped), for: .touchUpInside)
@@ -187,9 +186,12 @@ extension AlarmCollectionViewCell {
 }
 
 extension AlarmCollectionViewCell {
-    func dataBind(_ itemData: AlarmModel, itemRow: Int) {
-        ampmLabel.text = itemData.ampmLabel
-        timeLabel.text = itemData.timeLabel
+    func dataBind(_ itemData: AlarmEntity, itemRow: Int) {
+        let timeComponents = itemData.timestamp.split(separator: ":").compactMap { Int($0) }
+        let hour = timeComponents.first ?? 0
+        
+        ampmLabel.text = hour < 12 ? "오전" : "오후"
+        timeLabel.text = itemData.timestamp
         self.itemRow = itemRow
     }
 }

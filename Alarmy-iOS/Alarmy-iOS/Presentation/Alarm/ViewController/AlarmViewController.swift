@@ -47,6 +47,8 @@ final class AlarmViewController: UIViewController {
         setStyle()
         setHierarchy()
         setLayout()
+        
+        fetchAlarmList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -281,6 +283,18 @@ extension AlarmViewController: AlarmSettingViewControllerDelegate {
     func alarmSettingViewControllerDidDismiss() {
         if isDimmed {
             plusButtonTapped()
+            
         }
     }
 }
+// MARK: - Network
+extension AlarmViewController {
+    private func fetchAlarmList() {
+        Task {
+            let data = try await DefaultFetchAlarmService().fetchAlarmList()
+            alarmCollectionView.updateData(with: data)
+            updateCollectionViewHeight()
+        }
+    }
+}
+
