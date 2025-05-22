@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct AlarmEntity {
+    let timestamp: String
+    let isActive: Bool
+}
+
+extension AlarmEntity {
+    static func mock() -> AlarmEntity {
+        return .init(timestamp: "00:00", isActive: true)
+    }
+}
