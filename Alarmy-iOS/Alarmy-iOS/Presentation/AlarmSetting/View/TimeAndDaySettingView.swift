@@ -13,6 +13,7 @@ import Then
 final class TimeAndDaySettingView: UIView {
     // MARK: - Properties
     var isTimeChanged: ((Date) -> Void)?
+    var timestamp: String?
     
     // MARK: - UI Properties
     private var timePicker = UIDatePicker()
@@ -188,8 +189,26 @@ extension TimeAndDaySettingView {
         userComponents.day = nowComponents.day
         
         if let newDate = Calendar.current.date(from: userComponents) {
+            var newHour: String = ""
+            var newMinute: String = ""
+            
             isTimeChanged?(newDate)
-
+            
+            guard let hour = userComponents.hour, let minute = userComponents.minute else { return }
+            
+            if hour < 10 {
+                newHour = "0" + String(hour)
+            } else {
+                newHour = String(hour)
+            }
+            
+            if minute < 10 {
+                newMinute = "0" + String(minute)
+            } else {
+                newMinute = String(minute)
+            }
+                
+            timestamp = "\(newHour):\(newMinute)"
         }
     }
 }
