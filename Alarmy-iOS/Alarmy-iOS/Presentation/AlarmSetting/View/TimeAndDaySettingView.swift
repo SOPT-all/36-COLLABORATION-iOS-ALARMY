@@ -211,7 +211,5 @@ extension TimeAndDaySettingView {
                 
             timestamp = "\(newHour):\(newMinute)"
         }
-        
-        
     }
 }

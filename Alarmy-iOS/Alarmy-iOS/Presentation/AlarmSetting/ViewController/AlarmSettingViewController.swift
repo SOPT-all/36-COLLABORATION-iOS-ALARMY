@@ -28,7 +28,6 @@ final class AlarmSettingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         view.backgroundColor = .appColor(.grey900)
@@ -40,12 +39,18 @@ final class AlarmSettingViewController: UIViewController {
 extension AlarmSettingViewController {
     func setAddTarget() {
         self.rootView.saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        self.rootView.headerView.xButton.addTarget(self, action: #selector(xButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    private func xButtonTapped() {
+        delegate?.alarmSettingViewControllerDidDismiss()
+        self.dismiss(animated: true)
     }
 }
 
 // MARK: - Network
 extension AlarmSettingViewController {
-    
     @objc
     private func saveButtonTapped() {
         Task {

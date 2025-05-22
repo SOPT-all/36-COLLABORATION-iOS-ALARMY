@@ -12,7 +12,7 @@ import Then
 
 final class AlarmSettingView: UIView {
     // MARK: - UI Properties
-    private let headerView = HeaderView()
+    let headerView = HeaderView()
     
     private let alarmSettingScrollView = UIScrollView()
     private let alarmSettingScrollContentView = UIView()
@@ -85,6 +85,7 @@ extension AlarmSettingView: ViewConfigurable {
         headerView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(62)
             $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(40)
         }
         
         alarmSettingScrollView.snp.makeConstraints {
