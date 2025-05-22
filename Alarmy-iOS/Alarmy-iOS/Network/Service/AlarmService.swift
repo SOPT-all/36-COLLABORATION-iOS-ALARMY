@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol AlarmProtocol {
+protocol FetchAlarmProtocol {
     func fetchAlarmList() async throws -> [AlarmEntity]
 }
 
-struct DefaultAlarmService: AlarmProtocol {
+struct DefaultFetchAlarmService: FetchAlarmProtocol {
     private let network = BaseService.shared
     
     func fetchAlarmList() async throws -> [AlarmEntity] {

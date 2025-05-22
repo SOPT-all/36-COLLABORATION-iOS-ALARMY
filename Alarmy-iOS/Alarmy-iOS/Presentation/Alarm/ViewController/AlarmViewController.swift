@@ -282,7 +282,7 @@ extension AlarmViewController {
 extension AlarmViewController {
     private func fetchAlarmList() {
         Task {
-            let data = try await DefaultAlarmService().fetchAlarmList()
+            let data = try await DefaultFetchAlarmService().fetchAlarmList()
             alarmCollectionView.updateData(with: data)
             updateCollectionViewHeight()
         }
