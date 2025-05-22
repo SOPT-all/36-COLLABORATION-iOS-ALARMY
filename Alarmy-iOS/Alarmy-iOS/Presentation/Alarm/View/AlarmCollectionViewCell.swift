@@ -189,9 +189,11 @@ extension AlarmCollectionViewCell {
     func dataBind(_ itemData: AlarmEntity, itemRow: Int) {
         let timeComponents = itemData.timestamp.split(separator: ":").compactMap { Int($0) }
         let hour = timeComponents.first ?? 0
-        
+
         ampmLabel.text = hour < 12 ? "오전" : "오후"
         timeLabel.text = itemData.timestamp
+
         self.itemRow = itemRow
     }
+
 }

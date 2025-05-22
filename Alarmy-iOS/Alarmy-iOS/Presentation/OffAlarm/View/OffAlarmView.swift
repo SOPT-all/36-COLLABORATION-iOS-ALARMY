@@ -25,6 +25,8 @@ final class OffAlarmView: UIView {
     
     private let offButton = UIButton()
     
+    var onDismiss: (() -> Void)?
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -121,6 +123,8 @@ extension OffAlarmView {
                 blur: 10,
                 spread: 0
             )
+            
+            $0.addTarget(self, action: #selector(offButtonTapped), for: .touchUpInside)
         }
     }
     
@@ -195,6 +199,13 @@ extension OffAlarmView {
         
         let current = timeFormatter.string(from: Date())
         return current
+    }
+}
+
+extension OffAlarmView {
+    @objc
+    private func offButtonTapped() {
+        onDismiss?()
     }
 }
 

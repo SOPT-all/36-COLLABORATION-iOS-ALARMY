@@ -8,12 +8,13 @@
 import Foundation
 
 struct AlarmEntity {
+    let id: Int
     let timestamp: String
-    let isActive: Bool
+    var isActive: Bool
 }
 
 extension AlarmEntity {
     static func mock() -> AlarmEntity {
-        return .init(timestamp: "00:00", isActive: true)
+        return .init(id: 1, timestamp: "00:00", isActive: true)
     }
 }

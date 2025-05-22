@@ -16,10 +16,8 @@ final class DefaultAlarmCheckService: AlarmCheckServiceProtocol {
     
     func fetchAlarmCheck(currentTime: String) async throws -> String {
         do {
-            let request = AlarmCheckRequest(currentTime: currentTime)
             let response: AlarmCheckResponse = try await network.request(
-                endPoint: .alarmCheck,
-                body: request
+                endPoint: .alarmCheck(currentTime: currentTime)
             )
 
             let shouldTriggerID = response.alarmInfo
@@ -33,5 +31,4 @@ final class DefaultAlarmCheckService: AlarmCheckServiceProtocol {
             return ""
         }
     }
-
 }
