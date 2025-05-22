@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  Alarmy-iOS
+//
+//  Created by 최주리 on 5/10/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BASE_URL = http:/$()/43.202.204.122
+

@@ -11,13 +11,13 @@ import SnapKit
 import Then
 
 final class AlarmSettingView: UIView {
-    
+    // MARK: - UI Properties
     private let headerView = HeaderView()
     
     private let alarmSettingScrollView = UIScrollView()
     private let alarmSettingScrollContentView = UIView()
     
-    private let timeAndDaySettingView = TimeAndDaySettingView()
+    let timeAndDaySettingView = TimeAndDaySettingView()
     private let divider1 = SectionDivider()
     private let missionSettingView = MissionSettingView()
     private let divider2 = SectionDivider()
@@ -25,7 +25,7 @@ final class AlarmSettingView: UIView {
     private let divider3 = SectionDivider()
     private let etcSettingView = EtcSettingView()
     
-    private let saveButton = UIButton()
+    let saveButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +38,6 @@ final class AlarmSettingView: UIView {
         timeAndDaySettingView.isTimeChanged = { [weak self] newDate in
             self?.headerView.updateAlarmLabel(to: newDate)
         }
-        
         timeAndDaySettingView.isTimeChanged?(Date())
     }
     
