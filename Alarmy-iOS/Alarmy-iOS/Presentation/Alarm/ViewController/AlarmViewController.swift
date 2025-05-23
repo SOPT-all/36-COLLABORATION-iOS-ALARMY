@@ -339,20 +339,24 @@ extension AlarmViewController {
     }
     
     private func showOffAlarmView() {
-        guard offAlarmView.superview == nil else { return }
-
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }),
+              offAlarmView.superview == nil else {
+            return
+        }
+        
         offAlarmView.alpha = 0
         offAlarmView.onDismiss = { [weak self] in
             guard let self = self else { return }
-
+            
             self.offAlarmView.removeFromSuperview()
-
+            
             if let tabBarController = self.tabBarController as? AlarmyTabBarController {
                 tabBarController.selectedIndex = TabIndex.morning.rawValue
             }
         }
-
-        view.addSubview(offAlarmView)
+        
+        window.addSubview(offAlarmView)
         offAlarmView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
