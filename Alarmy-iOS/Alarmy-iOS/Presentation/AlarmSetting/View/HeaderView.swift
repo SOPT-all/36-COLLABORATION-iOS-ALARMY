@@ -13,7 +13,7 @@ import Then
 final class HeaderView: UIView {
     
     // MARK: - UI Properties
-    private let xButton = UIButton()
+    let xButton = UIButton()
     private let timeUntilAlarmLabel = UILabel()
     private let headerStackView = UIStackView()
     private let headerBackgroundView = UIView()
