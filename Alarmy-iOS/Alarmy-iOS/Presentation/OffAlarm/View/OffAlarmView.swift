@@ -43,8 +43,7 @@ final class OffAlarmView: UIView {
 }
 
 // MARK: - ViewConfigurable protocol
-// TODO: 머지하고 프로토콜 채택하기 ~
-extension OffAlarmView {
+extension OffAlarmView: ViewConfigurable {
     func setStyle() {
         backgroundImageView.do {
             $0.image = .stopBackground

@@ -49,8 +49,6 @@ final class AlarmViewController: UIViewController {
         setStyle()
         setHierarchy()
         setLayout()
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -336,10 +334,12 @@ extension AlarmViewController {
 
         offAlarmView.alpha = 0
         offAlarmView.onDismiss = { [weak self] in
-            UIView.animate(withDuration: 0.3, animations: {
-                self?.offAlarmView.alpha = 0
-            }) { _ in
-                self?.offAlarmView.removeFromSuperview()
+            guard let self = self else { return }
+
+            self.offAlarmView.removeFromSuperview()
+
+            if let tabBarController = self.tabBarController as? AlarmyTabBarController {
+                tabBarController.selectedIndex = TabIndex.morning.rawValue
             }
         }
 

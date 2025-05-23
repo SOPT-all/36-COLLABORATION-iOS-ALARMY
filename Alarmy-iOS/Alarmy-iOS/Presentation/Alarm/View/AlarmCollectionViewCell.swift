@@ -108,7 +108,7 @@ extension AlarmCollectionViewCell {
                 .foregroundColor: UIColor.appColor(.grey100)
             ]))
             
-            config.image = .iconAlarmNullOff
+            config.image = .iconAlarmNullOn
             config.imagePlacement = .trailing
             config.imagePadding = 4
             
