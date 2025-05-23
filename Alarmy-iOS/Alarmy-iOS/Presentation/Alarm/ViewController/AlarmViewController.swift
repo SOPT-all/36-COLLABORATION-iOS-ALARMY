@@ -345,15 +345,15 @@ extension AlarmViewController {
             return
         }
         
+        if let tabBarController = self.tabBarController as? AlarmyTabBarController {
+            tabBarController.selectedIndex = TabIndex.morning.rawValue
+        }
+        
         offAlarmView.alpha = 0
         offAlarmView.onDismiss = { [weak self] in
             guard let self = self else { return }
             
             self.offAlarmView.removeFromSuperview()
-            
-            if let tabBarController = self.tabBarController as? AlarmyTabBarController {
-                tabBarController.selectedIndex = TabIndex.morning.rawValue
-            }
         }
         
         window.addSubview(offAlarmView)
