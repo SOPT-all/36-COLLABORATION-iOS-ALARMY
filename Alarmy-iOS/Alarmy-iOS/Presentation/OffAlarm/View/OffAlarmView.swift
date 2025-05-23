@@ -25,6 +25,8 @@ final class OffAlarmView: UIView {
     
     private let offButton = UIButton()
     
+    var onDismiss: (() -> Void)?
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,8 +43,7 @@ final class OffAlarmView: UIView {
 }
 
 // MARK: - ViewConfigurable protocol
-// TODO: 머지하고 프로토콜 채택하기 ~
-extension OffAlarmView {
+extension OffAlarmView: ViewConfigurable {
     func setStyle() {
         backgroundImageView.do {
             $0.image = .stopBackground
@@ -121,6 +122,8 @@ extension OffAlarmView {
                 blur: 10,
                 spread: 0
             )
+            
+            $0.addTarget(self, action: #selector(offButtonTapped), for: .touchUpInside)
         }
     }
     
@@ -195,6 +198,13 @@ extension OffAlarmView {
         
         let current = timeFormatter.string(from: Date())
         return current
+    }
+}
+
+extension OffAlarmView {
+    @objc
+    private func offButtonTapped() {
+        onDismiss?()
     }
 }
 

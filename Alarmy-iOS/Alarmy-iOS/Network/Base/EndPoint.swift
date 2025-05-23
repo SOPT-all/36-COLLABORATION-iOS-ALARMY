@@ -1,4 +1,4 @@
-//
+ㄴ//
 //  Endpoint.swift
 //  Alarmy-iOS
 //
@@ -14,10 +14,11 @@ enum EndPoint {
     // post 예시
     case login
     case alarms
+    case alarmCheck(currentTime: String)
     
     var restType: HTTPMethodType {
         switch self {
-        case .fetchWeather, .fetchQuote, .alarms:
+        case .fetchWeather, .fetchQuote, .alarms, .alarmCheck:
             return .get
         case .createAlarm, .login:
             return .post
@@ -36,6 +37,8 @@ enum EndPoint {
             return ""
         case .alarms:
             return "/api/v1/alarms"
+        case .alarmCheck(let currentTime):
+            return "/api/v1/alarm/check?currentTime=\(currentTime)"
         }
     }
     
@@ -43,7 +46,7 @@ enum EndPoint {
         switch self {
         case .fetchWeather:
             HeaderType.none.value
-        case .fetchQuote, .createAlarm, .alarms, .login:
+        case .fetchQuote, .createAlarm, .alarmCheck, .alarms, .login:
             HeaderType.auth.value
         }
     }

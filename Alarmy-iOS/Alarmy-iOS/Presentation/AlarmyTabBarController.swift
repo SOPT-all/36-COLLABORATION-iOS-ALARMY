@@ -7,15 +7,15 @@
 
 import UIKit
 
+enum TabIndex: Int {
+    case alarm
+    case sleep
+    case morning
+    case report
+    case setting
+}
+
 final class AlarmyTabBarController: UITabBarController, UITabBarControllerDelegate {
-    
-    private enum TabIndex: Int {
-        case alarm
-        case sleep
-        case morning
-        case report
-        case setting
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

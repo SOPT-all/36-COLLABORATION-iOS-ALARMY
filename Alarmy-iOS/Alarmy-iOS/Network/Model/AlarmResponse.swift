@@ -15,6 +15,6 @@ struct AlarmResponse: Decodable {
 
 extension AlarmResponse {
     func toEntity() -> AlarmEntity {
-        .init(timestamp: timestamp, isActive: isActive)
+        .init(id: id, timestamp: timestamp, isActive: isActive)
     }
 }
