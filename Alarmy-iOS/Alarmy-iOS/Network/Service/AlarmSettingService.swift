@@ -8,13 +8,13 @@
 import Foundation
 
 protocol AlarmSettingProtocol {
-    func createAlarm(timestamp: String) async throws -> Void
+    func createAlarm(timestamp: String) async throws
 }
 
-struct AlarmSettingService: AlarmSettingProtocol {
+struct DefaultAlarmSettingService: AlarmSettingProtocol {
     private let network = BaseService.shared
     
-    func createAlarm(timestamp: String) async throws -> Void {
+    func createAlarm(timestamp: String) async throws {
         do {
             let request = AlarmSettingRequest(timestamp: timestamp)
             let response: [AlarmSettingResponse] = try await network.request(

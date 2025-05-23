@@ -16,7 +16,7 @@ protocol AlarmSettingViewControllerDelegate: AnyObject {
 
 final class AlarmSettingViewController: UIViewController {
     // MARK: - Properties
-    private let service: AlarmSettingProtocol = AlarmSettingService()
+    private let service: AlarmSettingProtocol = DefaultAlarmSettingService()
     weak var delegate: AlarmSettingViewControllerDelegate?
     
     // MARK: - UI Properties
