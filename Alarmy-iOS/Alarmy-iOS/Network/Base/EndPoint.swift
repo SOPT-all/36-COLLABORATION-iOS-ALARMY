@@ -1,4 +1,4 @@
-ㄴ//
+//
 //  Endpoint.swift
 //  Alarmy-iOS
 //
