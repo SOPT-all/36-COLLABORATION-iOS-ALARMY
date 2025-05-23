@@ -311,9 +311,6 @@ extension AlarmViewController {
         Task {
             do {
                 let triggeredIDs = try await service.fetchAlarmCheck(currentTime: currentTime)
-                    .split(separator: ",")
-                    .compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
-                
                 let currentList = alarmCollectionView.getCurrentData()
                 
                 let updatedList = currentList.map { alarm in

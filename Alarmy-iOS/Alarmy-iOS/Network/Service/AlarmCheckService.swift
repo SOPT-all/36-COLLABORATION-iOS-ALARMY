@@ -8,27 +8,26 @@
 import Foundation
 
 protocol AlarmCheckServiceProtocol {
-    func fetchAlarmCheck(currentTime: String) async throws -> String
+    func fetchAlarmCheck(currentTime: String) async throws -> [Int]
 }
 
 final class DefaultAlarmCheckService: AlarmCheckServiceProtocol {
     private let network = BaseService.shared
     
-    func fetchAlarmCheck(currentTime: String) async throws -> String {
+    func fetchAlarmCheck(currentTime: String) async throws -> [Int] {
         do {
             let response: AlarmCheckResponse = try await network.request(
                 endPoint: .alarmCheck(currentTime: currentTime)
             )
 
-            let shouldTriggerID = response.alarmInfo
+            let triggeredIDs = response.alarmInfo
                 .filter { $0.shouldTrigger }
-                .map { String($0.id) }
-                .joined(separator: ", ")
+                .map { $0.id }
 
-            return shouldTriggerID
+            return triggeredIDs
         } catch {
             print("get 실패 ~")
-            return ""
+            return []
         }
     }
 }
